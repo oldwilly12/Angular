@@ -6,21 +6,46 @@
 <section class="row">
 
   <div class="col-12 col-sm-6">
-    <h3>Agregar:</h3>
-    <input type="text" class="form-control" placeholder="Name" />
-    <input type="number" class="form-control mt-2" placeholder="Poder" />
+    <h3>Agregar: {{ name() }}</h3>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Name"
+      [value]="name()"
+      (change)="name.set( txtName.value )"
+      (input)="name.set( txtName.value )"
+      #txtName
+       />
 
-    <button class="mt-2 btn btn-primary">Agregar</button>
+    <input
+     type="number"
+     class="form-control mt-2"
+     placeholder="Poder"
+     [value]="power()"
+     (input)="power.set( +txtPower.value )"
+     #txtPower
+     />
+
+    <button (click)="addCharacter()" class="mt-2 btn btn-primary">Agregar</button>
   </div>
 
   <div class="col-12 col-sm-6">
-    <h3>Listado</h3>
-    <ol>
-      <li>Goku</li>
-      <li>Goku</li>
-      <li>Goku</li>
-      <li>Goku</li>
-    </ol>
+    <h3>Listado Fuertes</h3>
+    <ul>
+      @for (character of characters(); track character.id; let idx = $index) {
+        @if (character.power > 2000) {
+          <li>
+            <span>{{ idx + 1 }} - {{ character.name }}</span>
+            <strong
+            [class.text-danger]="character.power > 15000"
+            [class.text-primary]="character.power < 15000"
+            > ({{ character.power }}) </strong>
+          </li>
+        } @else {
+          <li><strong>Aqui no hay nadie</strong></li>
+        }
+      }
+    </ul>
   </div>
 
 </section>

@@ -1,5 +1,7 @@
-import { NgClass } from '@angular/common';
-import { Component, computed, signal } from '@angular/core';
+
+import { Component, signal } from '@angular/core';
+import { CharacterListComponent } from "../../components/dragonball/characterList/characterList.component";
+import { DragonballCharacterAddComponent } from "../../components/dragonball/dragonball-character-add/dragonball-character-add.component";
 
 interface Character {
   id: number;
@@ -9,13 +11,12 @@ interface Character {
 
 
 @Component({
-  selector: 'app-dragonball',
-  imports: [
-    //NgClass
-   ],
-  templateUrl: './dragonball.component.html',
+  selector: 'app-dragonballSuper',
+
+  templateUrl: './dragonball-super.component.html',
+  imports: [CharacterListComponent, DragonballCharacterAddComponent],
 })
-export class DragonballComponent {
+export class DragonballSuperComponent {
 
   name = signal('');
   power = signal<number>(0);
@@ -23,17 +24,9 @@ export class DragonballComponent {
 
   characters = signal<Character[]>([  // es una señal que manerajara un arreglo de personajes
     { id: 1, name: 'Goku', power: 15001 },
-    // { id: 2, name: 'Vegeta', power: 8000 },
-    // { id: 3, name: 'Trunks', power: 2000 },
-    // { id: 4, name: 'Gohan', power: 2500 },
-    // { id: 5, name: 'Piccolo', power: 3000 },
+    { id: 2, name: 'Vegeta', power: 8000 },
   ]);
 
-  // powerClasses = computed(() => {
-  //   return {
-  //     'text-danger' : true,
-  //   }
-  // })
   addCharacter() {
     if( !this.name() || !this.power() || this.power() <= 0) {
       return;
