@@ -1,5 +1,4 @@
-<h3>Listado Fuertes</h3>
-<h4>{{ listName() }}</h4>
+<h3>{{ listName() }}</h3>
     <ul>
       @for (character of characters(); track character.id; let idx = $index) {
         @if (character.power > 2000) {
