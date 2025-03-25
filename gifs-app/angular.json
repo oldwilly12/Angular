@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "gift-app": {
+    "gifs-app": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/gift-app",
+            "outputPath": "dist/gifs-app",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -59,10 +59,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "gift-app:build:production"
+              "buildTarget": "gifs-app:build:production"
             },
             "development": {
-              "buildTarget": "gift-app:build:development"
+              "buildTarget": "gifs-app:build:development"
             }
           },
           "defaultConfiguration": "development"
