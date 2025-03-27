@@ -28,8 +28,18 @@ export class GifService {
 
   private http = inject(HttpClient);
 
-  trendingGifs = signal<Gif[]>([]);
+  trendingGifs = signal<Gif[]>([]); // [gif1, gif2, gif3, ...]
   trendingGifsLoading = signal(true);
+
+  trendingGifGroup = computed<Gif[][]>(() => {
+    const groups = [];
+    for( let i = 0; i < this.trendingGifs().length; i+=3 ){
+      groups.push(this.trendingGifs().slice(i, i + 3));
+    }
+
+    // console.log(groups);
+    return groups; // [[gif1, gif2, gif3], [gif1, gif2, gif3], [gif1, gif2, gif3]]
+  })
 
   searchHistrory = signal<Record<string, Gif[]>>(loadFromLocalStorage());
   searchHistoryKeys = computed(() => Object.keys(this.searchHistrory()));
@@ -56,7 +66,7 @@ export class GifService {
       const gifs = GifMapper.mapGiphyItemsToGifsArray(resp.data);
       this.trendingGifs.set(gifs);
       this.trendingGifsLoading.set(false);
-      console.log(gifs);
+      // console.log(gifs);
     } )
 
   }
@@ -76,8 +86,8 @@ export class GifService {
           ...history,
           [query.toLowerCase()]: items
         }))
-      }),
-      tap(() => console.log(this.searchHistrory()))
+      })
+
 
       //TODO: Historial
     );
