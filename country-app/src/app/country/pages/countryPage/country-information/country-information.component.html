@@ -33,11 +33,13 @@
 <section class="w-3/4 mx-auto">
   <figure class="diff aspect-16/9" tabindex="0">
     <div class="diff-item-1" role="img">
-      <img [alt]="country().name" [src]="country().flagSvg" />
+      <img
+      class="blur brightness-75"
+      [alt]="country().name"
+      [src]="country().flagSvg" />
     </div>
     <div class="diff-item-2" role="img" tabindex="0">
       <img
-        class="blur brightness-75"
         [alt]="country().name"
         [src]="country().flagSvg" />
     </div>
