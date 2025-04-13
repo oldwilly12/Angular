@@ -30,31 +30,31 @@ export class BasicPageComponent {
   //   inStorage: new FormControl(0),
   // });
 
-  isValidField( fieldName: string ): boolean | null {
-    return (
-      this.myForm.controls[fieldName].errors &&
-      this.myForm.controls[fieldName].touched) // "!!" lo convierte en boolean si hay algo o si no hay algo
-  }
+  // isValidField( fieldName: string ): boolean | null {
+  //   return (
+  //     this.myForm.controls[fieldName].errors &&
+  //     this.myForm.controls[fieldName].touched) // "!!" lo convierte en boolean si hay algo o si no hay algo
+  // }
 
-  getFieldError( fieldName: string ): string | null {
+  // getFieldError( fieldName: string ): string | null {
 
-    if (!this.myForm.controls[fieldName]) return null;
+  //   if (!this.myForm.controls[fieldName]) return null;
 
-    const errors = this.myForm.controls[fieldName].errors?? {};
+  //   const errors = this.myForm.controls[fieldName].errors?? {};
 
-    for( const key of Object.keys( errors )) { // forma de barrer todas las llaves de este objeto
-        switch ( key ) {
-          case 'required':
-            return 'Este campo es requerido';
-          case 'minlength':
-            return `Minimo de ${ errors['minlength'].requiredLength } caracteres.`;
-          case 'min':
-            return `Valor Minimo de ${ errors['min'].min }.`;
-        }
-    }
+  //   for( const key of Object.keys( errors )) { // forma de barrer todas las llaves de este objeto
+  //       switch ( key ) {
+  //         case 'required':
+  //           return 'Este campo es requerido';
+  //         case 'minlength':
+  //           return `Minimo de ${ errors['minlength'].requiredLength } caracteres.`;
+  //         case 'min':
+  //           return `Valor Minimo de ${ errors['min'].min }.`;
+  //       }
+  //   }
 
-    return null;
-  }
+  //   return null;
+  // }
 
   onSave() {
     if ( this.myForm.invalid ) {
