@@ -27,7 +27,10 @@
 
             <div class="input-group">
                 <input class="form-control"
-                       placeholder="Agregar favorito">
+                       placeholder="Agregar favorito"
+                       [formControl]="newFavorite"
+                       (keydown.enter)="onAddToFavorites()"
+                       />
 
 
                 <button class="btn btn-outline-primary"
@@ -57,13 +60,18 @@
                         >
 
                       <button class="btn btn-outline-danger"
-                              type="button">
+                              type="button"
+                              (click)="onDeleteFavorite(i)"
+                              >
                         Eliminar
                     </button>
                   </div>
-                  <span class="form-text text-danger">
-                     Este campo es requerido
-                  </span>
+                  @if ( formUtils.isValidFieldInArray( favoriteGames, i)) {
+                    <span class="form-text text-danger">
+                       {{ formUtils.getFieldErrorInArray( favoriteGames, i) }}
+                    </span>
+
+                  }
 
               </div>
             }
@@ -77,8 +85,8 @@
         <div class="col-sm-12">
             <button type="submit"
                     class="btn btn-primary float-end"
+                    [disabled]="myForm.invalid"
                     >
-                    <!-- [disabled]="myForm.invalid" -->
                 Guardar
             </button>
         </div>

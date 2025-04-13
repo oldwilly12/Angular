@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormUtils } from '../../../utils/form-utils';
 
 @Component({
@@ -30,8 +30,34 @@ export class DynamicPageComponent {
 
   });
 
+  newFavorite = new FormControl('', Validators.required);
+  // newFavorite = this.fb.control([''])
+
   // getter invocar poperty
   get favoriteGames() {
     return this.myForm.get('favoriteGames') as FormArray; // decirle que es un array
+  }
+
+  // isValidFieldInArray( formArray: FormArray,  index: number ) {
+  //   return (
+  //     formArray.controls[index].errors && formArray.controls[index].touched
+  //   )
+  // }
+
+
+  onAddToFavorites() {
+    if ( this.newFavorite.invalid ) return ; //si no es valido hacer un return
+
+    const newGame = this.newFavorite.value; // obtener el valor del input
+
+    this.favoriteGames.push(this.fb.control( newGame, Validators.required));
+
+    this.newFavorite.reset(); // limpiar el input
+  }
+
+  // eliminar con el index
+  onDeleteFavorite(index: number) {
+    this.favoriteGames.removeAt(index); // eliminar el elemento del array
+
   }
 }
