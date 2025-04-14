@@ -60,4 +60,9 @@ export class DynamicPageComponent {
     this.favoriteGames.removeAt(index); // eliminar el elemento del array
 
   }
+
+  onSubmit() {
+    this.myForm.markAllAsTouched(); // marcar todos los campos como tocados para que se muestren los errores
+
+  }
 }
