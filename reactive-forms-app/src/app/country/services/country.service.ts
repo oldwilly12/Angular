@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { combineLatest, Observable, of } from 'rxjs';
 import { Country } from '../interfaces/country.interface';
 
 @Injectable({providedIn: 'root'})
@@ -35,8 +35,17 @@ export class CountryService {
     return this.http.get<Country>(url);
   }
 
-  getCountryBorderByCode( borders: string[]) {
+  getCountryNamesByCodeArray( countryCodes: string[]): Observable<Country[]> {
+    if ( !countryCodes || countryCodes.length === 0) return of([]);
 
+    const countriesRequests: Observable<Country>[] = []; //es un arreglo de observables que emiten el pais
+
+    countryCodes.forEach( code => {
+      const request = this.getCountryByAlphaCode(code);
+      countriesRequests.push(request);
+    })
+
+    return combineLatest(countriesRequests);
   }
 
 }
@@ -47,4 +56,8 @@ export class CountryService {
  * en providers:[
  *  provideHttpClient( withFetch() ) // <-- add this line
  * ]
+ *
+ *
+ * combineLatest, nos permite pasar un arreglo de subscriciones y trabajar con ellas y esperar que todas se emitan y tener los valores
+ * cuando se cumplan con extio. el combineLatest recibe un arreglo de observables
  */
